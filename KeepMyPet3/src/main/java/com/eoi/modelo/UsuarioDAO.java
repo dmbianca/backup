@@ -1,0 +1,45 @@
+
+	package com.eoi.modelo;
+	import java.sql.Connection;
+	import java.sql.PreparedStatement;
+	import java.sql.ResultSet;
+	import java.sql.SQLException;
+
+	import com.eoi.servicios.conexion;
+	public class UsuarioDAO {
+		
+		Connection con;
+		PreparedStatement pst;
+		
+		//borramos un usuario
+		public void BorraUsuario(Usuarios u) throws SQLException {
+			String sql = "DELETE * FROM Usuarios WHERE usuId=?";
+			con= conexion.getInstance().getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setInt(1, u.getUsuId());
+			pst.executeUpdate();
+			pst.close();
+			con.close();
+		}
+		//vamos a modificar un usuario
+		public void ModificaUsuario (Usuarios u) throws SQLException {
+			String sql = "UPDATE Usuarios SET UsuNombre=?,UsuApellido=?,UsuNacimiento=?,UsuAlta=?,UsuMail=?,UsuPass=?,UsuRol=?,UsuCiudad=?,UsuDNI=? WHERE UsuId=?";
+			con= conexion.getInstance().getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1,u.getUsuNombre());
+			pst.setString(2,u.getUsuApellido());
+			pst.setInt(3,u.getUsuNacimiento());
+			pst.setInt(4,u.getUsuAlta());
+			pst.setString(5,u.getUsuMail());
+			pst.setString(6,u.getUsuPass());
+			pst.setString(7,u.getUsuRol());
+			pst.setString(8,u.getUsuCiudad());
+			pst.setString(9,u.getUsuDNI());
+			
+			pst.executeUpdate();
+			pst.close();
+			con.close();
+		}
+		
+		}
+
